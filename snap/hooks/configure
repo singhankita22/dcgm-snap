@@ -7,23 +7,9 @@
 nv_hostengine_port="$(snapctl get nv-hostengine-port)"
 dcgm_exporter_address="$(snapctl get dcgm-exporter-address)"
 dcgm_exporter_metrics_file="$(snapctl get dcgm-exporter-metrics-file)"
-
-autostart="$(snapctl get autostart)"
-
-if [[ "$autostart" == "true" ]]; then
-    snapctl start --enable dcgm.nv-hostengine
-    
-    # Wait for the engine to initialize
-    sleep 5
-    
-    # Start the exporter
-    snapctl start --enable dcgm.dcgm-exporter
-    
-elif [[ "$autostart" == "false" ]]; then
-    snapctl stop dcgm.dcgm-exporter
-    snapctl stop dcgm.nv-hostengine
-fi
-
+# Retrieve the user-defined configuration for autostart
+# Usage: snap set dcgm exporter.autostart=true
+autostart="$(snapctl get exporter.autostart)"
 
 if [[ -z "$nv_hostengine_port" ]]; then
     # Explicitly use the default bind port of nv-hostengine
@@ -67,3 +53,14 @@ else
     fi
 fi
 
+# Handle the 'Disabled' or 'Unset' state
+# We default to 'stop --disable' if the value is false or empty.
+# This ensures that Port 9400 is only claimed upon explicit user request.
+if [ "$autostart" = "false" ] || [ -z "$autostart" ]; then
+    snapctl stop --disable dcgm.dcgm-exporter
+    
+# Handle the 'Enabled' state
+# When set to true, the service is started and set to persist across reboots.
+elif [ "$autostart" = "true" ]; then
+    snapctl start --enable dcgm.dcgm-exporter
+fi
