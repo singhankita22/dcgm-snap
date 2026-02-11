@@ -54,6 +54,7 @@ else
     fi
 fi
 
+# If 'autostart' is empty (default), this entire block is skipped.
 # Handle the 'Disabled' state
 if [[ "$autostart" = "false" ]]; then
     snapctl stop --disable dcgm.dcgm-exporter
