@@ -54,10 +54,8 @@ else
     fi
 fi
 
-# Handle the 'Disabled' or 'Unset' state
-# We default to 'stop --disable' if the value is false or empty.
-# This ensures that Port 9400 is only claimed upon explicit user request.
-if [[ "$autostart" = "false" ]] || [[ -z "$autostart" ]]; then
+# Handle the 'Disabled' state
+if [[ "$autostart" = "false" ]]; then
     snapctl stop --disable dcgm.dcgm-exporter
 
 # Handle the 'Enabled' state
