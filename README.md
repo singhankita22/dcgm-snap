@@ -25,6 +25,21 @@ You can build the snap locally by using the command:
 snapcraft pack -v
 ```
 
+## Configuration
+
+The snap supports a default-configure hook which runs once during the installation of the snap to allow automated startup of dcgm-exporter service, particularly useful when deployed with a custom gadget snap.
+
+# Autostart via Gadget Snap
+
+If the exporter.autostart configuration is set to true by a gadget snap, the dcgm-exporter service will be enabled and started automatically upon installation.Gadget Snap Configuration Example:
+In your gadget snap's defaults section:
+
+YAML
+defaults:
+  <snap-id>:
+    exporter:
+      autostart: true
+
 ## Test
 
 You can test the snap locally by using the command:
