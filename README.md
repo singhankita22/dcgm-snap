@@ -39,6 +39,7 @@ defaults:
   <snap-id>:
     exporter:
       autostart: true
+```
 
 ## Test
 
