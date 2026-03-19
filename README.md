@@ -27,12 +27,15 @@ snapcraft pack -v
 
 ## Configuration
 
-The snap supports a `default-configure` hook which runs once during the installation of the snap to allow automated startup of dcgm-exporter service, particularly useful when deployed with a custom gadget snap.
+The snap supports a `default-configure` hook which runs once during the installation of the snap to allow automated startup of `dcgm-exporter` service. This is particularly useful when deployed with a custom gadget snap , as it helps override the default service status of the exporter (which is disabled at installation).
 
 ### Autostart via Gadget Snap
 
-If the `exporter.autostart` configuration is set to `true` by a gadget snap, the dcgm-exporter service will be enabled and started automatically upon installation.Gadget Snap Configuration Example:
-In your gadget snap's defaults section:
+If the `exporter.autostart` configuration is set to `true` by a gadget snap, the `dcgm-exporter` service will be enabled and started automatically upon installation.
+
+#### Gadget Snap Configuration Example:
+
+In your gadget snap's `defaults` section:
 
 ```YAML
 defaults:
