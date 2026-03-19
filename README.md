@@ -39,7 +39,8 @@ In your gadget snap's `defaults` section:
 
 ```YAML
 defaults:
-  <snap-id>:
+  #dcgm snap ID
+  e2YXZYWeF3P3divT2g7G5mxaqAmPVZxj:
     exporter:
       autostart: true
 ```
